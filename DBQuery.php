@@ -6,7 +6,7 @@ class DBQuery implements DBQueryInterface
 {
 
     private $pdo;
-    public static $stamp = 0;
+    public $stamp = 0;
     //private $timestamp;
 
     /**
@@ -17,7 +17,7 @@ class DBQuery implements DBQueryInterface
     public function __construct(DBConnectionInterface $DBConnection)
     {
         //parent::__construct($DBConnection);
-        $this->pdo = $DBConnection;
+        $this->pdo = $DBConnection->pdo;
     }
 
     /**
@@ -41,7 +41,7 @@ class DBQuery implements DBQueryInterface
     public function setDBConnection(DBConnectionInterface $DBConnection)
     {
         // TODO: Implement setDBConnection() method.
-        $this->pdo = $DBConnection;
+        $this->pdo = $DBConnection->pdo;
     }
 
     /**
@@ -55,16 +55,17 @@ class DBQuery implements DBQueryInterface
     public function query($query, $params = null)
     {
         // TODO: Implement query() method.
+        $time_start = time();
         try {
-            $sttm = $this->pdo->prepare($query);
-            if ($params) {
-                $res = $sttm->execute($params);
-            } else {
-                $res = $sttm->execute();
-            }
-            self::$stamp = time();
+            $stmt = $this->pdo->prepare($query);
 
-            return $res;
+            usleep(2000000);
+
+            $time_stop = time();
+
+            $this->stamp = $time_stop - $time_start;
+
+            return $stmt->execute($params);
         } catch (PDOException $e) {
 
             return 'Error query: ' . $e->getMessage();
@@ -83,15 +84,19 @@ class DBQuery implements DBQueryInterface
     public function queryAll($query, array $params = null)
     {
         // TODO: Implement queryAll() method.
+        $time_start = time();
         try {
-            $sttm = $this->pdo->prepare($query);
-            if ($params) {
-                $sttm->execute($params);
-            } else {
-                $sttm->execute();
-            }
-            $row = $sttm->fetchAll(PDO::FETCH_ASSOC);
-            self::$stamp = time();
+            $stmt = $this->pdo->prepare($query);
+
+            $stmt->execute($params);
+
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            usleep(3000000);
+
+            $time_stop = time();
+
+            $this->stamp = $time_stop - $time_start;
 
             return $row;
         } catch (PDOException $e) {
@@ -111,19 +116,19 @@ class DBQuery implements DBQueryInterface
     public function queryRow($query, array $params = null)
     {
         // TODO: Implement queryRow() method.
-        $data = array();
+        $time_start = time();
         try {
-            $sttm = $this->pdo->prepare($query);
-            if ($params) {
-                $sttm->execute($params);
-            } else {
-                $sttm->execute();
-            }
-            $row = $sttm->fetch(PDO::FETCH_ASSOC);
-            $data[] = $row;
-            self::$stamp = time();
+            $stmt = $this->query($query, $params);
 
-            return $data;
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            usleep(4000000);
+
+            $time_stop = time();
+
+            $this->stamp = $time_stop - $time_start;
+
+            return $row;
         } catch (PDOException $e) {
 
             return 'Error query: ' . $e->getMessage();
@@ -141,20 +146,21 @@ class DBQuery implements DBQueryInterface
     public function queryColumn($query, array $params = null)
     {
         // TODO: Implement queryColumn() method.
-        $data = array();
+        $time_start = time();
         try {
-            $sttm = $this->pdo->prepare($query);
-            if ($params) {
-                $sttm->execute($params);
-            } else {
-                $sttm->execute();
-            }
-            while ($row = $sttm->fetchColumn()) {
-                $data[] = $row;
-            }
-            self::$stamp = time();
+            $stmt = $this->pdo->prepare($query);
 
-            return $data;
+            $stmt->execute($params);
+
+            $row = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+            usleep(5000000);
+
+            $time_stop = time();
+
+            $this->stamp = $time_stop - $time_start;
+
+            return $row;
         } catch (PDOException $e) {
 
             return 'Error query: ' . $e->getMessage();
@@ -172,15 +178,19 @@ class DBQuery implements DBQueryInterface
     public function queryScalar($query, array $params = null)
     {
         // TODO: Implement queryScalar() method.
+        $time_start = time();
         try {
-            $sttm = $this->pdo->prepare($query);
-            if ($params) {
-                $sttm->execute($params);
-            } else {
-                $sttm->execute();
-            }
-            $row = $sttm->fetchColumn();
-            self::$stamp = time();
+            $stmt = $this->pdo->prepare($query);
+
+            $stmt->execute($params);
+
+            $row = $stmt->fetchColumn();
+
+            usleep(6000000);
+
+            $time_stop = time();
+
+            $this->stamp = $time_stop - $time_start;
 
             return $row;
         } catch (PDOException $e) {
@@ -202,15 +212,17 @@ class DBQuery implements DBQueryInterface
     public function execute($query, array $params = null)
     {
         // TODO: Implement execute() method.
+        $time_start = time();
         try {
-            $sttm = $this->pdo->prepare($query);
-            if ($params) {
-                $sttm->execute($params);
-            } else {
-                $sttm->execute();
-            }
-            $count = $sttm->rowCount();
-            self::$stamp = time();
+            $stmt = $this->query($query, $params);
+
+            $count = $stmt->rowCount();
+
+            usleep(7000000);
+
+            $time_stop = time();
+
+            $this->stamp = $time_stop - $time_start;
 
             return $count;
         } catch (PDOException $e) {
@@ -228,9 +240,8 @@ class DBQuery implements DBQueryInterface
     {
         // TODO: Implement getLastQueryTime() method.
         //$sec = time() - $this->stamp;
-        $sec = time() - self::$stamp = time();
 
-        return $sec;
+        return $this->stamp;
     }
 
 }

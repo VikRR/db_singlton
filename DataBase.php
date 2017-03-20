@@ -1,11 +1,30 @@
 <?php
 
-include 'DBConnectionInterface.php';
+include_once 'DBConnectionInterface.php';
 
-class DB extends PDO implements DBConnectionInterface
+
+class DataBase implements DBConnectionInterface
 {
 
     private static $instance;
+    private static $dsn;
+    private static $username;
+    private static $password;
+    public $pdo;
+
+    private function __construct()
+    {
+        try {
+            $this->pdo = new PDO(self::$dsn, self::$username, self::$password);
+        } catch (PDOException $e) {
+            echo 'Error connecting for database. ' . $e->getMessage();
+        }
+    }
+
+    private function __clone()
+    {
+
+    }
 
     /**
      * Creates new instance representing a connection to a database
@@ -21,18 +40,15 @@ class DB extends PDO implements DBConnectionInterface
     public static function connect($dsn, $username = '', $password = '')
     {
         // TODO: Implement connect() method.
+        self::$dsn = $dsn;
+        self::$username = $username;
+        self::$password = $password;
+
         if (is_null(self::$instance)) {
-            try {
-                self::$instance = new self($dsn, $username, $password);
-            } catch (PDOException $e) {
-                echo 'Error connecting for database. ' . $e->getMessage();
-            }
-
-            return self::$instance;
-        } else {
-
-            return self::$instance;
+            self::$instance = new self($dsn, $username = '', $password = '');
         }
+
+        return self::$instance;
     }
 
     /**
@@ -43,11 +59,8 @@ class DB extends PDO implements DBConnectionInterface
     public function reconnect()
     {
         // TODO: Implement reconnect() method.
-        session_destroy();
-        session_name('function reconnect');
-        session_start();
-        $_SESSION['name'] = 'Petya';
-        session_status();
+        $this->pdo = null;
+        $this->pdo = new PDO(self::$dsn, self::$username, self::$password);
     }
 
     /**
@@ -58,10 +71,9 @@ class DB extends PDO implements DBConnectionInterface
     public function getPdoInstance()
     {
         // TODO: Implement getPdoInstance() method.
-        if (is_null(self::$instance)) {
-            return null;
-        }
-        return self::$instance;
+        echo 'getPDOInstance';
+
+        return $this->pdo;
     }
 
     /**
@@ -75,10 +87,11 @@ class DB extends PDO implements DBConnectionInterface
     public function getLastInsertID($sequenceName = '')
     {
         // TODO: Implement getLastInsertID() method.
-        if ($sequenceName) {
-            self::$instance->lastInsertId($sequenceName);
-        } else {
-            self::$instance->lastInsertId();
+        try {
+
+            return $this->pdo->lastInsertId($sequenceName);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -91,8 +104,13 @@ class DB extends PDO implements DBConnectionInterface
     public function close()
     {
         // TODO: Implement close() method.
-        if (!is_null(self::$instance)) {
-            self::$instance = null;
+        try {
+            if (!is_null($this->pdo)) {
+                $this->pdo = null;
+            }
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -111,9 +129,10 @@ class DB extends PDO implements DBConnectionInterface
     {
         // TODO: Implement setAttribute() method.
         try {
-            self::$instance->setAttribute($attribute, $value);
+
+            return $this->pdo->setAttribute($attribute, $value);
         } catch (PDOException $e) {
-            echo 'Error get attribute. ' . $e->getMessage();
+            echo $e->getMessage();
         }
     }
 
@@ -130,9 +149,9 @@ class DB extends PDO implements DBConnectionInterface
         // TODO: Implement getAttribute() method.
         try {
 
-            return self::$instance->getAttribute($attribute);
+            return $this->pdo->getAttribute($attribute);
         } catch (PDOException $e) {
-            echo 'Error get attribute. ' . $e->getMessage();
+            echo $e->getMessage();
         }
     }
 }
