@@ -118,7 +118,9 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement queryRow() method.
         $time_start = time();
         try {
-            $stmt = $this->query($query, $params);
+            $stmt = $this->pdo->prepare($query);
+
+            $stmt->execute($params);
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -214,7 +216,9 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement execute() method.
         $time_start = time();
         try {
-            $stmt = $this->query($query, $params);
+            $stmt = $this->pdo->prepare($query);
+
+            $stmt->execute($params);
 
             $count = $stmt->rowCount();
 
