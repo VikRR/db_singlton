@@ -236,6 +236,11 @@ class DBQuery implements DBQueryInterface
         return $this->stamp;
     }
 
+    /**
+     * Returns time in milliseconds
+     *
+     * @return mixed
+     */
     public function queryTime()
     {
 
