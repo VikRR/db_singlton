@@ -55,13 +55,11 @@ class DBQuery implements DBQueryInterface
     public function query($query, $params = null)
     {
         // TODO: Implement query() method.
-        $time_start = time();
+        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
 
-            usleep(2000000);
-
-            $time_stop = time();
+            $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
@@ -84,7 +82,7 @@ class DBQuery implements DBQueryInterface
     public function queryAll($query, array $params = null)
     {
         // TODO: Implement queryAll() method.
-        $time_start = time();
+        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
 
@@ -92,9 +90,7 @@ class DBQuery implements DBQueryInterface
 
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            usleep(3000000);
-
-            $time_stop = time();
+            $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
@@ -116,7 +112,7 @@ class DBQuery implements DBQueryInterface
     public function queryRow($query, array $params = null)
     {
         // TODO: Implement queryRow() method.
-        $time_start = time();
+        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
 
@@ -124,9 +120,7 @@ class DBQuery implements DBQueryInterface
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            usleep(4000000);
-
-            $time_stop = time();
+            $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
@@ -148,7 +142,7 @@ class DBQuery implements DBQueryInterface
     public function queryColumn($query, array $params = null)
     {
         // TODO: Implement queryColumn() method.
-        $time_start = time();
+        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
 
@@ -156,9 +150,7 @@ class DBQuery implements DBQueryInterface
 
             $row = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
-            usleep(5000000);
-
-            $time_stop = time();
+            $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
@@ -180,7 +172,7 @@ class DBQuery implements DBQueryInterface
     public function queryScalar($query, array $params = null)
     {
         // TODO: Implement queryScalar() method.
-        $time_start = time();
+        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
 
@@ -188,9 +180,7 @@ class DBQuery implements DBQueryInterface
 
             $row = $stmt->fetchColumn();
 
-            usleep(6000000);
-
-            $time_stop = time();
+            $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
@@ -214,7 +204,7 @@ class DBQuery implements DBQueryInterface
     public function execute($query, array $params = null)
     {
         // TODO: Implement execute() method.
-        $time_start = time();
+        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
 
@@ -222,9 +212,7 @@ class DBQuery implements DBQueryInterface
 
             $count = $stmt->rowCount();
 
-            usleep(7000000);
-
-            $time_stop = time();
+            $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
@@ -246,6 +234,12 @@ class DBQuery implements DBQueryInterface
         //$sec = time() - $this->stamp;
 
         return $this->stamp;
+    }
+
+    public function queryTime()
+    {
+
+        return $time = microtime(true);
     }
 
 }
