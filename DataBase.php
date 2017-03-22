@@ -10,7 +10,7 @@ class DataBase implements DBConnectionInterface
     private static $dsn;
     private static $username;
     private static $password;
-    public $pdo;
+    private $pdo;
 
     private function __construct()
     {
@@ -71,7 +71,6 @@ class DataBase implements DBConnectionInterface
     public function getPdoInstance()
     {
         // TODO: Implement getPdoInstance() method.
-        echo 'getPDOInstance';
 
         return $this->pdo;
     }
@@ -91,7 +90,7 @@ class DataBase implements DBConnectionInterface
 
             return $this->pdo->lastInsertId($sequenceName);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            return $e->getMessage();
         }
     }
 
@@ -110,7 +109,7 @@ class DataBase implements DBConnectionInterface
             }
 
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            return $e->getMessage();
         }
     }
 
@@ -132,7 +131,7 @@ class DataBase implements DBConnectionInterface
 
             return $this->pdo->setAttribute($attribute, $value);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            return $e->getMessage();
         }
     }
 
@@ -151,7 +150,15 @@ class DataBase implements DBConnectionInterface
 
             return $this->pdo->getAttribute($attribute);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            return $e->getMessage();
         }
+    }
+
+    /**
+     * @return PDO
+     */
+    public function getPDO()
+    {
+        return $this->pdo;
     }
 }

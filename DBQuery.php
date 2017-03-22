@@ -4,10 +4,9 @@ include 'DBQueryInterface.php';
 
 class DBQuery implements DBQueryInterface
 {
-
-    private $pdo;
     public $stamp = 0;
-    //private $timestamp;
+    private $pdo;
+    private $stmt;
 
     /**
      * Create new instance DBQuery.
@@ -16,8 +15,7 @@ class DBQuery implements DBQueryInterface
      */
     public function __construct(DBConnectionInterface $DBConnection)
     {
-        //parent::__construct($DBConnection);
-        $this->pdo = $DBConnection->pdo;
+        $this->pdo = $DBConnection->getPDO();
     }
 
     /**
@@ -41,7 +39,7 @@ class DBQuery implements DBQueryInterface
     public function setDBConnection(DBConnectionInterface $DBConnection)
     {
         // TODO: Implement setDBConnection() method.
-        $this->pdo = $DBConnection->pdo;
+        $this->pdo = $DBConnection->getPDO();
     }
 
     /**
@@ -57,13 +55,13 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement query() method.
         $time_start = $this->queryTime();
         try {
-            $stmt = $this->pdo->prepare($query);
+            $this->stmt = $this->pdo->prepare($query);
 
             $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
-            return $stmt->execute($params);
+            return $this->stmt->execute($params);
         } catch (PDOException $e) {
 
             return 'Error query: ' . $e->getMessage();
@@ -84,11 +82,10 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement queryAll() method.
         $time_start = $this->queryTime();
         try {
-            $stmt = $this->pdo->prepare($query);
 
-            $stmt->execute($params);
+            $this->query($query, $params);
 
-            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $row = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
             $time_stop = $this->queryTime();
 
@@ -114,11 +111,10 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement queryRow() method.
         $time_start = $this->queryTime();
         try {
-            $stmt = $this->pdo->prepare($query);
 
-            $stmt->execute($params);
+            $this->query($query, $params);
 
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $row = $this->stmt->fetch(PDO::FETCH_ASSOC);
 
             $time_stop = $this->queryTime();
 
@@ -144,11 +140,10 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement queryColumn() method.
         $time_start = $this->queryTime();
         try {
-            $stmt = $this->pdo->prepare($query);
 
-            $stmt->execute($params);
+            $this->query($query, $params);
 
-            $row = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+            $row = $this->stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
             $time_stop = $this->queryTime();
 
@@ -174,11 +169,10 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement queryScalar() method.
         $time_start = $this->queryTime();
         try {
-            $stmt = $this->pdo->prepare($query);
 
-            $stmt->execute($params);
+            $this->query($query, $params);
 
-            $row = $stmt->fetchColumn();
+            $row = $this->stmt->fetchColumn();
 
             $time_stop = $this->queryTime();
 
@@ -206,11 +200,10 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement execute() method.
         $time_start = $this->queryTime();
         try {
-            $stmt = $this->pdo->prepare($query);
 
-            $stmt->execute($params);
+            $this->query($query, $params);
 
-            $count = $stmt->rowCount();
+            $count = $this->stmt->rowCount();
 
             $time_stop = $this->queryTime();
 
@@ -231,7 +224,6 @@ class DBQuery implements DBQueryInterface
     public function getLastQueryTime()
     {
         // TODO: Implement getLastQueryTime() method.
-        //$sec = time() - $this->stamp;
 
         return $this->stamp;
     }
