@@ -6,7 +6,6 @@ class DBQuery implements DBQueryInterface
 {
     public $stamp = 0;
     private $pdo;
-    private $stmt;
 
     /**
      * Create new instance DBQuery.
@@ -55,16 +54,18 @@ class DBQuery implements DBQueryInterface
         // TODO: Implement query() method.
         $time_start = $this->queryTime();
         try {
-            $this->stmt = $this->pdo->prepare($query);
+            $stmt = $this->pdo->prepare($query);
 
             $time_stop = $this->queryTime();
 
             $this->stamp = $time_stop - $time_start;
 
-            return $this->stmt->execute($params);
+            $stmt->execute($params);
+
+            return $stmt;
         } catch (PDOException $e) {
 
-            return 'Error query: ' . $e->getMessage();
+            throw $e;
         }
 
     }
@@ -83,9 +84,9 @@ class DBQuery implements DBQueryInterface
         $time_start = $this->queryTime();
         try {
 
-            $this->query($query, $params);
+            $stmt = $this->query($query, $params);
 
-            $row = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             $time_stop = $this->queryTime();
 
@@ -94,7 +95,7 @@ class DBQuery implements DBQueryInterface
             return $row;
         } catch (PDOException $e) {
 
-            return 'Error query: ' . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -112,9 +113,9 @@ class DBQuery implements DBQueryInterface
         $time_start = $this->queryTime();
         try {
 
-            $this->query($query, $params);
+            $stmt = $this->query($query, $params);
 
-            $row = $this->stmt->fetch(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $time_stop = $this->queryTime();
 
@@ -123,7 +124,7 @@ class DBQuery implements DBQueryInterface
             return $row;
         } catch (PDOException $e) {
 
-            return 'Error query: ' . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -141,9 +142,9 @@ class DBQuery implements DBQueryInterface
         $time_start = $this->queryTime();
         try {
 
-            $this->query($query, $params);
+            $stmt = $this->query($query, $params);
 
-            $row = $this->stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+            $row = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
             $time_stop = $this->queryTime();
 
@@ -151,8 +152,7 @@ class DBQuery implements DBQueryInterface
 
             return $row;
         } catch (PDOException $e) {
-
-            return 'Error query: ' . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -170,9 +170,9 @@ class DBQuery implements DBQueryInterface
         $time_start = $this->queryTime();
         try {
 
-            $this->query($query, $params);
+            $stmt = $this->query($query, $params);
 
-            $row = $this->stmt->fetchColumn();
+            $row = $stmt->fetchColumn();
 
             $time_stop = $this->queryTime();
 
@@ -181,7 +181,7 @@ class DBQuery implements DBQueryInterface
             return $row;
         } catch (PDOException $e) {
 
-            return 'Error query: ' . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -201,9 +201,9 @@ class DBQuery implements DBQueryInterface
         $time_start = $this->queryTime();
         try {
 
-            $this->query($query, $params);
+            $stmt = $this->query($query, $params);
 
-            $count = $this->stmt->rowCount();
+            $count = $stmt->rowCount();
 
             $time_stop = $this->queryTime();
 
@@ -212,7 +212,7 @@ class DBQuery implements DBQueryInterface
             return $count;
         } catch (PDOException $e) {
 
-            return 'Error query: ' . $e->getMessage();
+            throw $e;
         }
     }
 

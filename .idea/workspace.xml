@@ -5,7 +5,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DBQuery.php" afterPath="$PROJECT_DIR$/DBQuery.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DataBase.php" afterPath="$PROJECT_DIR$/DataBase.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,16 +51,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="32" column="6" lean-forward="false" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
+            <state relative-caret-position="140">
+              <caret line="7" column="91" lean-forward="false" selection-start-line="7" selection-start-column="91" selection-end-line="7" selection-end-column="91" />
               <folding>
-                <marker date="1490173054183" expanded="true" signature="607:632" ph="SELECT * FRO... users" />
-                <marker date="1490173054183" expanded="true" signature="665:686" ph="SELECT * FRO... users" />
-                <marker date="1490173054183" expanded="true" signature="722:749" ph="SELECT `emai... users" />
-                <marker date="1490173054183" expanded="true" signature="785:812" ph="SELECT `emai... users" />
+                <marker date="1490184541414" expanded="true" signature="607:632" ph="SELECT * FRO... users" />
+                <marker date="1490184541414" expanded="true" signature="665:686" ph="SELECT * FRO... users" />
+                <marker date="1490184541414" expanded="true" signature="722:749" ph="SELECT `emai... users" />
+                <marker date="1490184541414" expanded="true" signature="785:812" ph="SELECT `emai... users" />
               </folding>
             </state>
           </provider>
@@ -70,18 +69,18 @@
       <file leaf-file-name="DBQuery.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DBQuery.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-278">
-              <caret line="201" column="13" lean-forward="false" selection-start-line="201" selection-start-column="13" selection-end-line="201" selection-end-column="13" />
+            <state relative-caret-position="2122">
+              <caret line="126" column="21" lean-forward="false" selection-start-line="126" selection-start-column="21" selection-end-line="126" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataBase.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DataBase.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DataBase.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1408">
-              <caret line="159" column="28" lean-forward="true" selection-start-line="159" selection-start-column="28" selection-end-line="159" selection-end-column="28" />
+            <state relative-caret-position="-2372">
+              <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -103,9 +102,9 @@
         <option value="$PROJECT_DIR$/DBQueryInterface.php" />
         <option value="$PROJECT_DIR$/DB.php" />
         <option value="$PROJECT_DIR$/functions.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/DBQuery.php" />
         <option value="$PROJECT_DIR$/DataBase.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -252,12 +251,12 @@
       <workItem from="1489916944853" duration="9087000" />
       <workItem from="1490011273395" duration="11724000" />
       <workItem from="1490083375418" duration="1686000" />
-      <workItem from="1490171458277" duration="1672000" />
+      <workItem from="1490171458277" duration="3959000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84253000" />
+    <option name="totallyTimeSpent" value="86540000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="66" y="76" width="1853" height="1004" extended-state="0" />
@@ -531,32 +530,32 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DB.php" />
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="6" lean-forward="false" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
-          <folding>
-            <marker date="1490173054183" expanded="true" signature="607:632" ph="SELECT * FRO... users" />
-            <marker date="1490173054183" expanded="true" signature="665:686" ph="SELECT * FRO... users" />
-            <marker date="1490173054183" expanded="true" signature="722:749" ph="SELECT `emai... users" />
-            <marker date="1490173054183" expanded="true" signature="785:812" ph="SELECT `emai... users" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DBQuery.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-278">
-          <caret line="201" column="13" lean-forward="false" selection-start-line="201" selection-start-column="13" selection-end-line="201" selection-end-column="13" />
+        <state relative-caret-position="2122">
+          <caret line="126" column="21" lean-forward="false" selection-start-line="126" selection-start-column="21" selection-end-line="126" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DataBase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1408">
-          <caret line="159" column="28" lean-forward="true" selection-start-line="159" selection-start-column="28" selection-end-line="159" selection-end-column="28" />
+        <state relative-caret-position="-2372">
+          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="91" lean-forward="false" selection-start-line="7" selection-start-column="91" selection-end-line="7" selection-end-column="91" />
+          <folding>
+            <marker date="1490184541414" expanded="true" signature="607:632" ph="SELECT * FRO... users" />
+            <marker date="1490184541414" expanded="true" signature="665:686" ph="SELECT * FRO... users" />
+            <marker date="1490184541414" expanded="true" signature="722:749" ph="SELECT `emai... users" />
+            <marker date="1490184541414" expanded="true" signature="785:812" ph="SELECT `emai... users" />
+          </folding>
         </state>
       </provider>
     </entry>

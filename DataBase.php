@@ -17,7 +17,7 @@ class DataBase implements DBConnectionInterface
         try {
             $this->pdo = new PDO(self::$dsn, self::$username, self::$password);
         } catch (PDOException $e) {
-            echo 'Error connecting for database. ' . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -90,7 +90,7 @@ class DataBase implements DBConnectionInterface
 
             return $this->pdo->lastInsertId($sequenceName);
         } catch (PDOException $e) {
-            return $e->getMessage();
+            throw $e;
         }
     }
 
@@ -109,7 +109,7 @@ class DataBase implements DBConnectionInterface
             }
 
         } catch (PDOException $e) {
-            return $e->getMessage();
+            throw $e;
         }
     }
 
@@ -131,7 +131,7 @@ class DataBase implements DBConnectionInterface
 
             return $this->pdo->setAttribute($attribute, $value);
         } catch (PDOException $e) {
-            return $e->getMessage();
+            throw $e;
         }
     }
 
@@ -150,7 +150,7 @@ class DataBase implements DBConnectionInterface
 
             return $this->pdo->getAttribute($attribute);
         } catch (PDOException $e) {
-            return $e->getMessage();
+            throw $e;
         }
     }
 
