@@ -52,19 +52,13 @@ class DBQuery implements DBQueryInterface
     public function query($query, $params = null)
     {
         // TODO: Implement query() method.
-        $time_start = $this->queryTime();
         try {
             $stmt = $this->pdo->prepare($query);
-
-            $time_stop = $this->queryTime();
-
-            $this->stamp = $time_stop - $time_start;
 
             $stmt->execute($params);
 
             return $stmt;
         } catch (PDOException $e) {
-
             throw $e;
         }
 
@@ -81,20 +75,17 @@ class DBQuery implements DBQueryInterface
     public function queryAll($query, array $params = null)
     {
         // TODO: Implement queryAll() method.
-        $time_start = $this->queryTime();
+        $time_start = microtime(true);
         try {
 
             $stmt = $this->query($query, $params);
 
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $time_stop = $this->queryTime();
-
-            $this->stamp = $time_stop - $time_start;
+            $this->queryTime($time_start);
 
             return $row;
         } catch (PDOException $e) {
-
             throw $e;
         }
     }
@@ -110,20 +101,17 @@ class DBQuery implements DBQueryInterface
     public function queryRow($query, array $params = null)
     {
         // TODO: Implement queryRow() method.
-        $time_start = $this->queryTime();
+        $time_start = microtime(true);
         try {
 
             $stmt = $this->query($query, $params);
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $time_stop = $this->queryTime();
-
-            $this->stamp = $time_stop - $time_start;
+            $this->queryTime($time_start);
 
             return $row;
         } catch (PDOException $e) {
-
             throw $e;
         }
     }
@@ -139,16 +127,14 @@ class DBQuery implements DBQueryInterface
     public function queryColumn($query, array $params = null)
     {
         // TODO: Implement queryColumn() method.
-        $time_start = $this->queryTime();
+        $time_start = microtime(true);
         try {
 
             $stmt = $this->query($query, $params);
 
             $row = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
-            $time_stop = $this->queryTime();
-
-            $this->stamp = $time_stop - $time_start;
+            $this->queryTime($time_start);
 
             return $row;
         } catch (PDOException $e) {
@@ -167,20 +153,17 @@ class DBQuery implements DBQueryInterface
     public function queryScalar($query, array $params = null)
     {
         // TODO: Implement queryScalar() method.
-        $time_start = $this->queryTime();
+        $time_start = microtime(true);
         try {
 
             $stmt = $this->query($query, $params);
 
             $row = $stmt->fetchColumn();
 
-            $time_stop = $this->queryTime();
-
-            $this->stamp = $time_stop - $time_start;
+            $this->queryTime($time_start);
 
             return $row;
         } catch (PDOException $e) {
-
             throw $e;
         }
     }
@@ -198,20 +181,17 @@ class DBQuery implements DBQueryInterface
     public function execute($query, array $params = null)
     {
         // TODO: Implement execute() method.
-        $time_start = $this->queryTime();
+        $time_start = microtime(true);
         try {
 
             $stmt = $this->query($query, $params);
 
             $count = $stmt->rowCount();
 
-            $time_stop = $this->queryTime();
-
-            $this->stamp = $time_stop - $time_start;
+            $this->queryTime($time_start);
 
             return $count;
         } catch (PDOException $e) {
-
             throw $e;
         }
     }
@@ -231,12 +211,15 @@ class DBQuery implements DBQueryInterface
     /**
      * Returns time in milliseconds
      *
+     * @param $time_start
+     * 
      * @return mixed
      */
-    public function queryTime()
+    public function queryTime($time_start)
     {
+        $this->stamp = microtime(true) - $time_start;
 
-        return $time = microtime(true);
+        return true;
     }
 
 }
