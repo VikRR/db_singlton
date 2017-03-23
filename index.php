@@ -25,7 +25,7 @@ $query = new DBQuery($db);
 
 $query->setDBConnection($db1);
 
-print_r($query->queryColumn('SELECT email FROM `users`'));
+print_r($query->queryAll('SELECT * FROM `users`'));
 //print_r($query->queryRow('SELECT * FROM `users`'));
 //print_r($query->queryColumn('SELECT `email` FROM `users`'));
 //print_r($query->queryScalar('SELECT `email` FROM `users`'));
